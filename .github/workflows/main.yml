@@ -23,7 +23,7 @@ jobs:
             pip install pyinstaller
 
     - name: Build Executable
-      run: main.py  # Replace 'your_script.py' with the name of your Python script
+      run: pyinstaller main.py  # Replace 'your_script.py' with the name of your Python script
 
     - name: Upload Executable
       uses: actions/upload-artifact@v2
