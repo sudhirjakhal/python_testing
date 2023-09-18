@@ -1,32 +1,38 @@
-name: Build Python Executable with PyInstaller
+name: Build Executable with PyInstaller
 
 on:
   push:
     branches:
-      - main  # Change this to the branch you want to trigger the workflow on
+      - main  # Adjust the branch as needed
+  workflow_dispatch:  # Enable manual triggering
+    inputs:
+      script-name:
+        description: main.py
+        required: false  # Make the input optional for manual runs
 
 jobs:
   build:
     runs-on: ubuntu-latest
 
     steps:
-    - name: Checkout code
-      uses: actions/checkout@v2
+      - name: Checkout Repository
+        uses: actions/checkout@v2
 
-    - name: Set up Python
-      uses: actions/setup-python@v2
-      with:
-        python-version: 3.x  # Specify the Python version you want
+      - name: Set up Python
+        uses: actions/setup-python@v2
+        with:
+          python-version: 3.11  # Specify the Python version you need
 
-    - name: Install PyInstaller
-      run: pip install -r requirements.txt
-            pip install pyinstaller
+      - name: Install PyInstaller
+        run: pip install pyinstaller
 
-    - name: Build Executable
-      run: pyinstaller main.py  # Replace 'your_script.py' with the name of your Python script
+      - name: Build Executable
+        run: pyinstaller --onefile ${{ inputs.script-name }}
+        # Use the provided script-name input, if available
+        # If not provided, use a default script name or omit this line
 
-    - name: Upload Executable
-      uses: actions/upload-artifact@v2
-      with:
-        name: dist
-        path: ./dist
+      - name: Upload Executable
+        uses: actions/upload-artifact@v2
+        with:
+          name: executable
+          path: ./dist  # Adjust the path to the executable
