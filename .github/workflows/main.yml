@@ -36,3 +36,11 @@ jobs:
         with:
           name: executable
           path: ./dist  # Adjust the path to the executable
+  
+      - name: Commit and Push Executable
+        run: |
+          git config --global user.email "jakhalsudhir@gmail.com"
+          git config --global user.name "Sudhir Kumar"
+          git add ./dist/main.exe  # Replace with your executable's name and path
+          git commit -m "Add executable file"
+          git push origin main  # Push to the main branc
