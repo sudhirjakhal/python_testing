@@ -27,7 +27,7 @@ jobs:
         run: pip install pyinstaller
 
       - name: Build Executable
-        run: pyinstaller --onefile ${{ inputs.script-name }}
+        run: pyinstaller --onefile main.py
         # Use the provided script-name input, if available
         # If not provided, use a default script name or omit this line
 
